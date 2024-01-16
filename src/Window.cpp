@@ -254,6 +254,7 @@ pid_t CWindow::getPID() {
             return -1;
 
         wl_client_get_credentials(wl_resource_get_client(m_uSurface.xdg->resource), &PID, nullptr, nullptr);
+        
     } else {
         if (!m_bIsMapped)
             return -1;
