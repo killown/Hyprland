@@ -250,15 +250,17 @@ pid_t CWindow::getPID() {
     pid_t PID = -1;
     if (!m_bIsX11) {
 
-        if (!m_bIsMapped)
+        wl_client_get_credentials(wl_resource_get_client(m_uSurface.xdg->resource), &PID, nullptr, nullptr);
+
+        if (!m_bIsMapped || PID == 0)
             return -1;
 
-        wl_client_get_credentials(wl_resource_get_client(m_uSurface.xdg->resource), &PID, nullptr, nullptr);
     } else {
-        if (!m_bIsMapped)
-            return -1;
 
         PID = m_uSurface.xwayland->pid;
+
+        if (!m_bIsMapped || PID == 0)
+            return -1;
     }
 
     return PID;
