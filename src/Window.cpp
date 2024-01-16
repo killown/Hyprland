@@ -252,14 +252,17 @@ pid_t CWindow::getPID() {
 
         wl_client_get_credentials(wl_resource_get_client(m_uSurface.xdg->resource), &PID, nullptr, nullptr);
 
-        if (!m_bIsMapped || PID == 0)
+        if (!m_bIsMapped)
             return -1;
 
     } else {
 
         PID = m_uSurface.xwayland->pid;
 
-        if (!m_bIsMapped || PID == 0)
+        if (!m_bIsMapped)
+            return -1;
+
+        if (PID == 0)
             return -1;
     }
 
